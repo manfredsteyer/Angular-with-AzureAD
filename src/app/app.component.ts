@@ -23,21 +23,12 @@ export class AppComponent {
 
     oauthService.configure(authConfig);
 
-    this.login().then(_ => {
+    this.oauthService.loadDiscoveryDocumentAndLogin().then(_ => {
       console.debug('logged in');
       console.debug('access_token', this.oauthService.getAccessToken());
       console.debug('id_token', this.oauthService.getIdToken())
     });
 
-  }
-
-  // Let's add this convenience method to the lib in the next version
-  login(): Promise<void> {
-    return this.oauthService.tryLoginCodeFlow().then(_ => {
-      if (!this.isLoggedIn) {
-        this.oauthService.initLoginFlow();
-      }
-    });
   }
 
   logout(): void {

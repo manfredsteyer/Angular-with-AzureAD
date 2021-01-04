@@ -7,18 +7,11 @@ const tenand = 'e402be96-34c9-477a-91ba-be69d7b3bf40';
 
 export const authConfig: AuthConfig = {
     
-    // Settings for Azure AD
-    // In the case of Azure AD, we can derive all these settings from the tenand
-    // Normally, these settings would be loaded from the discovery endpoint
-    // However, Azure AD does not enable CORS for this endpoint. Hence, we have
-    // to configure them here by hand.
+    // Derive issuer from tenand
     issuer: `https://login.microsoftonline.com/${tenand}/v2.0`,
-    loginUrl: `https://login.microsoftonline.com/${tenand}/oauth2/v2.0/authorize`,
-    tokenEndpoint: `https://login.microsoftonline.com/${tenand}/oauth2/v2.0/token`,
-    logoutUrl: `https://login.microsoftonline.com/${tenand}/oauth2/v2.0/logout`,
-
-    // This API is always the same when using Azure AD
-    userinfoEndpoint: 'https://graph.microsoft.com/oidc/userinfo',
+    
+    // Optional security checks that don't work with Azure AD
+    strictDiscoveryDocumentValidation: false,
 
     // ClientId from the configured client in Azure AD (see api.png)
     clientId: 'c502279d-c95a-41f4-9042-f2a1b1e7dda4',
